@@ -4,7 +4,7 @@
 
 For every input job, AlphaFold 3 writes all its outputs in a directory called by
 the sanitized version of the job name. E.g. for job name "My first fold (test)",
-AlphaFold 3 will write its outputs in a directory called `my_first_fold_test`.
+AlphaFold 3 will write its outputs in a directory called `my_first_fold_test` .
 
 The following structure is used within the output directory:
 
