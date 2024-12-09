@@ -17,7 +17,8 @@ should aid others with different setups. If you are installing locally outside
 of a Docker container, please ensure CUDA, cuDNN, and JAX are correctly
 installed; the
 [JAX installation documentation](https://jax.readthedocs.io/en/latest/installation.html#nvidia-gpu)
-is a useful reference for this case.
+is a useful reference for this case. Please note that the Docker container
+requires that the host machine has CUDA 12.6 installed.
 
 The instructions provided below describe how to:
 
@@ -33,8 +34,7 @@ The instructions provided below describe how to:
 Clean Ubuntu images are available on Google Cloud, AWS, Azure, and other major
 platforms.
 
-We first provisioned a new machine in Google Cloud Platform using the following
-command. We were using a Google Cloud project that was already set up.
+Using an existing Google Cloud project, we provisioned a new machine:
 
 *   We recommend using `--machine-type a2-ultragpu-1g` but feel free to use
     `--machine-type a2-highgpu-1g` for smaller predictions.
@@ -119,7 +119,7 @@ sudo nvidia-smi --gpu-reset
 nvidia-smi  # Check that the drivers are installed.
 ```
 
-Accept "Pending kernel upgrade" dialog if it appears.
+Accept the "Pending kernel upgrade" dialog if it appears.
 
 You will need to reboot the instance with `sudo reboot now` to reset the GPU if
 you see the following warning:
@@ -155,7 +155,7 @@ Check that your container can see the GPU:
 docker run --rm --gpus all nvidia/cuda:12.6.0-base-ubuntu22.04 nvidia-smi
 ```
 
-The output should look similar to this:
+Example output:
 
 ```text
 Mon Nov  11 12:00:00 2024
@@ -182,7 +182,7 @@ Mon Nov  11 12:00:00 2024
 
 ## Obtaining AlphaFold 3 Source Code
 
-You will need to have `git` installed to download the AlphaFold 3 repository:
+Install `git` and download the AlphaFold 3 repository:
 
 ```sh
 git clone https://github.com/google-deepmind/alphafold3.git
@@ -190,7 +190,8 @@ git clone https://github.com/google-deepmind/alphafold3.git
 
 ## Obtaining Genetic Databases
 
-This step requires `wget` and `zstd` to be installed on your machine.
+This step requires `wget` and `zstd` to be installed on your machine. On
+Debian-based systems install them by running `sudo apt install wget zstd`.
 
 AlphaFold 3 needs multiple genetic (sequence) protein and RNA databases to run:
 
